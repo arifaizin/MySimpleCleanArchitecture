@@ -17,5 +17,5 @@ class MainActivity : AppCompatActivity() {
 
         tv_welcome.text = viewModel.getWelcomeMessage("Dicoding")
     }
-    
+
 }

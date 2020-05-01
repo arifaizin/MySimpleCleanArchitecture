@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.mysimplecleanarchitecture.data.MessageRepositoryImpl
+import com.dicoding.mysimplecleanarchitecture.di.Injection
 import com.dicoding.mysimplecleanarchitecture.domain.GetMessageUseCase
 
 class MainViewModelFactory (
@@ -16,9 +17,8 @@ class MainViewModelFactory (
 
         fun getInstance(context: Context): MainViewModelFactory =
             instance ?: synchronized(this) {
-                val messageRepository = MessageRepositoryImpl()
-                val getMessageUseCase = GetMessageUseCase(messageRepository)
-                instance ?: MainViewModelFactory(getMessageUseCase)
+
+                instance ?: MainViewModelFactory(Injection.provideUseCase())
             }
     }
 
