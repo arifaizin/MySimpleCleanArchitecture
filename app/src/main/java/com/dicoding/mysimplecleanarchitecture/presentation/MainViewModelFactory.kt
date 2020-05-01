@@ -1,0 +1,32 @@
+package com.dicoding.mysimplecleanarchitecture.presentation
+
+import android.content.Context
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.dicoding.mysimplecleanarchitecture.data.MessageRepositoryImpl
+import com.dicoding.mysimplecleanarchitecture.domain.GetMessageUseCase
+
+class MainViewModelFactory (
+    private var getMessageUseCase: GetMessageUseCase
+) : ViewModelProvider.NewInstanceFactory() {
+
+    companion object {
+        @Volatile
+        private var instance: MainViewModelFactory? = null
+
+        fun getInstance(context: Context): MainViewModelFactory =
+            instance ?: synchronized(this) {
+                val messageRepository = MessageRepositoryImpl()
+                val getMessageUseCase = GetMessageUseCase(messageRepository)
+                instance ?: MainViewModelFactory(getMessageUseCase)
+            }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return when {
+            modelClass.isAssignableFrom(MainViewModel::class.java) -> MainViewModel(getMessageUseCase) as T
+            else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
+        }
+    }
+}
