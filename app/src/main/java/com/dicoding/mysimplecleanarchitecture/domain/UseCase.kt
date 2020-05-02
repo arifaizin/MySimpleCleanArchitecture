@@ -2,9 +2,9 @@ package com.dicoding.mysimplecleanarchitecture.domain
 
 abstract class UseCase<out Type, in Params> where Type : Any {
 
-    abstract fun run(params: Params): MessageEntity
+    abstract fun run(params: Params): Any
 
-    operator fun invoke(params: Params, onResult: (MessageEntity) -> Unit = {}) {
+    operator fun invoke(params: Params, onResult: (Any) -> Unit = {}) {
         onResult(run(params))
     }
 
