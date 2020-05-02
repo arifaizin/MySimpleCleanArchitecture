@@ -3,7 +3,6 @@ package com.dicoding.mysimplecleanarchitecture.presentation
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dicoding.mysimplecleanarchitecture.data.MessageRepositoryImpl
 import com.dicoding.mysimplecleanarchitecture.di.Injection
 import com.dicoding.mysimplecleanarchitecture.domain.GetMessageUseCase
 
@@ -17,7 +16,6 @@ class MainViewModelFactory (
 
         fun getInstance(context: Context): MainViewModelFactory =
             instance ?: synchronized(this) {
-
                 instance ?: MainViewModelFactory(Injection.provideUseCase())
             }
     }
