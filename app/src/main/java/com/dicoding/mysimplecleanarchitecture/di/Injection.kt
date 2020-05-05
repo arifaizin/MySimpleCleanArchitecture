@@ -1,7 +1,7 @@
 package com.dicoding.mysimplecleanarchitecture.di
 
 import com.dicoding.mysimplecleanarchitecture.data.MessageDataSource
-import com.dicoding.mysimplecleanarchitecture.data.MessageRepositoryImpl
+import com.dicoding.mysimplecleanarchitecture.data.MessageRepository
 import com.dicoding.mysimplecleanarchitecture.domain.GetMessageUseCase
 
 object Injection {
@@ -10,9 +10,9 @@ object Injection {
         return GetMessageUseCase(messageRepository)
     }
 
-    private fun provideRepository(): MessageRepositoryImpl {
+    private fun provideRepository(): MessageRepository {
         val messageDataSource = provideDataSource()
-        return MessageRepositoryImpl(messageDataSource)
+        return MessageRepository(messageDataSource)
     }
 
     private fun provideDataSource(): MessageDataSource {

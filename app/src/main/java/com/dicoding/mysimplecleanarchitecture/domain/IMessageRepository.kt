@@ -1,5 +1,5 @@
 package com.dicoding.mysimplecleanarchitecture.domain
 
-interface MessageRepository {
+interface IMessageRepository {
     fun getWelcomeMessage(name: String): MessageEntity
 }
