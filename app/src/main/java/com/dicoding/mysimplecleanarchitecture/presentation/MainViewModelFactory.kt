@@ -1,6 +1,5 @@
 package com.dicoding.mysimplecleanarchitecture.presentation
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.mysimplecleanarchitecture.di.Injection
