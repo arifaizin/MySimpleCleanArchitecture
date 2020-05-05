@@ -14,7 +14,7 @@ class MainViewModelFactory (
         @Volatile
         private var instance: MainViewModelFactory? = null
 
-        fun getInstance(context: Context): MainViewModelFactory =
+        fun getInstance(): MainViewModelFactory =
             instance ?: synchronized(this) {
                 instance ?: MainViewModelFactory(Injection.provideUseCase())
             }
