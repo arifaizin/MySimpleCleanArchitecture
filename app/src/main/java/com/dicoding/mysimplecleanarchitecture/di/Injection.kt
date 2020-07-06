@@ -1,5 +1,6 @@
 package com.dicoding.mysimplecleanarchitecture.di
 
+import com.dicoding.mysimplecleanarchitecture.data.IMessageDataSource
 import com.dicoding.mysimplecleanarchitecture.data.MessageDataSource
 import com.dicoding.mysimplecleanarchitecture.data.MessageRepository
 import com.dicoding.mysimplecleanarchitecture.domain.IMessageRepository
@@ -17,7 +18,7 @@ object Injection {
         return MessageRepository(messageDataSource)
     }
 
-    private fun provideDataSource(): MessageDataSource {
+    private fun provideDataSource(): IMessageDataSource {
         return MessageDataSource()
     }
 }
