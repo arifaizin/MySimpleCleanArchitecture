@@ -2,15 +2,17 @@ package com.dicoding.mysimplecleanarchitecture.di
 
 import com.dicoding.mysimplecleanarchitecture.data.MessageDataSource
 import com.dicoding.mysimplecleanarchitecture.data.MessageRepository
-import com.dicoding.mysimplecleanarchitecture.domain.GetMessageUseCase
+import com.dicoding.mysimplecleanarchitecture.domain.IMessageRepository
+import com.dicoding.mysimplecleanarchitecture.domain.MessageInteractor
+import com.dicoding.mysimplecleanarchitecture.domain.MessageUseCase
 
 object Injection {
-    fun provideUseCase(): GetMessageUseCase {
+    fun provideUseCase(): MessageUseCase {
         val messageRepository = provideRepository()
-        return GetMessageUseCase(messageRepository)
+        return MessageInteractor(messageRepository)
     }
 
-    private fun provideRepository(): MessageRepository {
+    private fun provideRepository(): IMessageRepository {
         val messageDataSource = provideDataSource()
         return MessageRepository(messageDataSource)
     }

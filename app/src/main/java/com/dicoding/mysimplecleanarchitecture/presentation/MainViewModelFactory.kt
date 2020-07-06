@@ -3,10 +3,10 @@ package com.dicoding.mysimplecleanarchitecture.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.mysimplecleanarchitecture.di.Injection
-import com.dicoding.mysimplecleanarchitecture.domain.GetMessageUseCase
+import com.dicoding.mysimplecleanarchitecture.domain.MessageUseCase
 
 class MainViewModelFactory (
-    private var getMessageUseCase: GetMessageUseCase
+    private var getMessageUseCase: MessageUseCase
 ) : ViewModelProvider.NewInstanceFactory() {
 
     companion object {
