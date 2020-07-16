@@ -8,21 +8,21 @@ import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class GetMessageUseCaseTest {
+class MessageUseCaseTest {
 
-    private lateinit var getMessage: MessageUseCase
+    private lateinit var messageUseCase: MessageUseCase
 
     @Mock private lateinit var messageRepository: IMessageRepository
 
     @Before
     fun setUp() {
-        getMessage = MessageInteractor(messageRepository)
+        messageUseCase = MessageInteractor(messageRepository)
         val dummyMessage = MessageEntity("Hello $NAME Welcome to Clean Architecture")
         `when`(messageRepository.getWelcomeMessage(NAME)).thenReturn(dummyMessage)
     }
 
     @Test fun `should get data from repository`() {
-        getMessage.getMessage(NAME)
+        messageUseCase.getMessage(NAME)
 
         verify(messageRepository).getWelcomeMessage(NAME)
         verifyNoMoreInteractions(messageRepository)

@@ -6,7 +6,7 @@ import com.dicoding.mysimplecleanarchitecture.di.Injection
 import com.dicoding.mysimplecleanarchitecture.domain.MessageUseCase
 
 class MainViewModelFactory (
-    private var getMessageUseCase: MessageUseCase
+    private var messageUseCase: MessageUseCase
 ) : ViewModelProvider.NewInstanceFactory() {
 
     companion object {
@@ -22,7 +22,7 @@ class MainViewModelFactory (
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-            modelClass.isAssignableFrom(MainViewModel::class.java) -> MainViewModel(getMessageUseCase) as T
+            modelClass.isAssignableFrom(MainViewModel::class.java) -> MainViewModel(messageUseCase) as T
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }
