@@ -23,6 +23,9 @@ android {
         }
     }
 
+    //Bayangkan Anda memiliki warning yang memang Anda biarkan,
+    // bisa jadi karena bukan menjadi prioritas bagi Anda atau memang tidak terlalu penting.
+    // Nah, jika Anda ingin fokus pada warning yang terbaru saja, Anda bisa membuat sebuah baseline.
     lintOptions {
         baseline file("lint-baseline.xml")
     }
