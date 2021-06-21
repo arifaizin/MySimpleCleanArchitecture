@@ -1,19 +1,31 @@
 version: 2.1
 
+# Orbs memudahkan Anda supaya tidak perlu copy-paste konfigurasi yang sama untuk project yang berbeda.
+
+# Sebagai contohnya Orbs Android adalah docker file yang berisi konfigurasi dasar seperti JDK, SDK dan OS
+
 orbs:
   android: circleci/android@0.2.1
 
+# Jobs adalah satuan tugas yang dilakukan dalam sebuah Continuous Integration. 
 jobs:
   build:
+    #untuk menggunakan orbs Anda cukup menggunakan Executor
     executor: android/android
+    
+    # Steps adalah langkah-langkah yang Anda lakukan dalam sebuah Job
     steps:
-      - checkout
+      - checkout #checkout berfungsi untuk mengambil kode yang ada di di Repository Github dan menyalinnya ke Circle CI
+      
+      #Restore_cache dan save_cache digunakan untuk menyimpan dependencies yang sudah terunduh sebelumnya ke dalam cache. Sehingga pada proses selanjutnya tidak perlu mengunduh lagi. Hal ini tentunya akan mempercepat proses build Anda.
+      #dapat dilihat pada tab step: Restoring Cache
       - restore_cache:
           key: android-orb-v1-
-      - run:
+      - run: # permission untuk menggunakan Gradle. Penting untuk mengunduh dependency dan mem-build project Android.
           name: Chmod permissions
           command: sudo chmod +x ./gradlew
-      - run:
+          
+      - run: # untuk mengunduh dependency yang dibutuhkan oleh project
           name: Download Dependencies
           command: ./gradlew androidDependencies
       - save_cache:
@@ -21,17 +33,25 @@ jobs:
           paths:
             - ~/.android/build-cache
             - ~/.android/cache
-      - run:
+            
+      - run: # untuk mem-build project Android supaya menjadi APK
           name: Run Build
           command: ./gradlew build
-      - store_artifacts: 
+      - store_artifacts: # untuk menyimpan hasil dari suatu proses.
           path: app/build/reports
           destination: reports
-      - run:
-          name: Run Tests
+          
+      - run: #Fungsi ini digunakan untuk melakukan testing. Ia akan otomatis menjalankan semua file test yang ada di dalam project
+          name: Run Tests 
           command: ./gradlew lint test
-      - store_test_results:
+      - store_test_results: #untuk menyimpan hasil testing. Anda dapat melihat hasilnya pada tab Test.
           path: app/build/test-results
       - store_artifacts:  
-          path: app/build/outputs/apk/debug/
-          destination: artifact-file
+          path: app/build/outputs/apk/debug/ # kita mengambil APK do path tersebut
+          destination: artifact-file #menyimpannya ke dalam folder baru dengan nama artifact-file. Anda dapat melihat hasil Artifact tersebut pada tab Artifact.
+          
+   # jika Anda ingin membuat jobs lebih dari satu? Anda dapat menambahkan di bawahnya dengan tab/indentasi yang sama 
+   #contoh:
+   # test: ...
+   
+# Membuat Job yang berbeda akan mempercepat proses karena kedua jobs tersebut dijalankan secara paralel.
